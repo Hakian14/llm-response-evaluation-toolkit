@@ -1,7 +1,7 @@
 # LLM Response Evaluation Toolkit
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
-[![tests](https://img.shields.io/badge/tests-11%20passing-0ca30c)](tests/)
+[![tests](https://github.com/Hakian14/llm-response-evaluation-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/Hakian14/llm-response-evaluation-toolkit/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Rubrics, inter-annotator agreement metrics and annotation quality control for grading large-language-model

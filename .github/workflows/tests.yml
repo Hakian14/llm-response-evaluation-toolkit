@@ -1,0 +1,26 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -r requirements.txt pytest scikit-learn
+      - name: Unit tests (agreement metrics, rubric, QC)
+        run: python -m pytest -q tests/
+      - name: Rubrics validate
+        run: for f in rubrics/*.yaml; do python -m llm_eval.cli validate-rubric "$f"; done
+      - name: Quality report builds from the sample pool
+        run: python -m llm_eval.cli report data/sample/annotations.csv --pairwise data/sample/pairwise_judgements.csv --out /tmp/report.md && head -5 /tmp/report.md
