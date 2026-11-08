@@ -1,0 +1,94 @@
+# Data-analysis / SQL response rubric
+# ---------------------------------------------------------------------------
+# A domain rubric for grading model responses to data-analysis prompts:
+# "write a query that…", "analyse this table…", "what does this chart show…".
+# Written from a data-analyst's perspective: the most common model failures are
+# silently wrong aggregations, ignored NULLs, and conclusions the data does not
+# support.
+
+name: Data Analysis & SQL Response Quality
+version: "1.0"
+task_type: single-response grading (data analysis, SQL, statistics)
+scale: {min: 1, max: 5}
+
+instructions: |
+  Where the response contains code (SQL/Python), trace it by hand or run it on
+  the sample data before scoring correctness. A query that "looks right" is not
+  evidence. Where the response states a conclusion from data, check that the
+  numbers shown actually support it.
+
+dimensions:
+  - key: correctness
+    name: Technical correctness
+    weight: 3.0
+    gate: {threshold: 1, cap: 2.0}
+    description: |
+      Does the code run and return the right result? Does the statistic match
+      its definition? Common failures: wrong join type (duplicating rows),
+      COUNT(*) vs COUNT(col) with NULLs, integer division, aggregating before
+      filtering, averaging percentages, wrong window frame, off-by-one date
+      boundaries.
+    anchors:
+      1: Does not run, or runs and returns a materially wrong result; or applies a statistical test whose assumptions are clearly violated with no acknowledgement.
+      2: Returns a result that is wrong in a subtle but consequential way (e.g. join fan-out inflating a sum), or the main statistic is mis-defined.
+      3: Correct for the main case; an edge case (NULLs, ties, empty groups, timezone) is mishandled.
+      4: Correct including edge cases; a non-idiomatic construct or a harmless inefficiency.
+      5: Correct, idiomatic, handles edge cases explicitly, and states any assumption it had to make about the data.
+
+  - key: analytical_soundness
+    name: Analytical soundness
+    weight: 2.0
+    description: |
+      Do the conclusions follow from the evidence? Checks for correlation-as-
+      causation, cherry-picked windows, missing denominators, survivorship
+      bias, confusing statistical and practical significance, and ignoring
+      confounders the prompt makes obvious.
+    anchors:
+      1: Draws a conclusion the data cannot support, or the opposite of what the data shows.
+      2: Over-claims (e.g. causal language for an observational comparison) without caveat.
+      3: Conclusions are supported but a relevant caveat or alternative explanation is missing.
+      4: Supported conclusions with appropriate hedging; one caveat could be sharper.
+      5: Supported, properly hedged, names the main alternative explanation and what would rule it out.
+
+  - key: requirement_coverage
+    name: Requirement coverage
+    weight: 1.5
+    description: Does it answer the actual question with the requested outputs (columns, grain, filters, time range, format)?
+    anchors:
+      1: Answers a different question or at the wrong grain.
+      2: Misses a required element (a column, a filter, the requested period).
+      3: All required elements present; an optional one the prompt implied is missing.
+      4: Everything requested; a small presentational detail differs from the ask.
+      5: Everything requested, at the right grain, plus the one sanity check an analyst would add.
+
+  - key: explanation
+    name: Explanation and interpretability
+    weight: 1.5
+    description: |
+      Can a stakeholder understand what was done and why? Code is commented
+      where non-obvious; results are interpreted in business terms; limitations
+      are stated.
+    anchors:
+      1: No explanation, or an explanation that misdescribes what the code does.
+      2: Describes the steps but not the reasoning; no interpretation of results.
+      3: Explains the approach; interpretation is generic ("sales increased").
+      4: Clear explanation and specific interpretation; could state one limitation more plainly.
+      5: Explanation a non-technical stakeholder could follow, specific interpretation with numbers, limitations stated.
+
+  - key: presentation
+    name: Presentation
+    weight: 1.0
+    description: Readable code formatting, sensible column names, units and rounding stated, appropriate use of tables.
+    anchors:
+      1: Unreadable code or output; no units; misleading precision.
+      2: Readable with effort; inconsistent naming or formatting.
+      3: Acceptable; minor formatting noise.
+      4: Clean and consistent; one small improvement possible.
+      5: Exemplary - someone could paste this into a report unchanged.
+
+metadata:
+  author: Ha Kieu Anh
+  sample_prompts:
+    - "Write a SQL query returning monthly retention by acquisition cohort for 2025."
+    - "Given this table of A/B test results, which variant should we ship?"
+    - "Explain what this correlation matrix tells us about the sales drivers."

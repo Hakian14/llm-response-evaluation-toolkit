@@ -1,0 +1,59 @@
+# Pairwise preference rubric
+# ---------------------------------------------------------------------------
+# For comparing two responses (A and B) to the same prompt and recording which
+# is better and by how much. Used for preference data (RLHF/DPO-style).
+#
+# Scale: -3..+3 where negative favours A, positive favours B, 0 = tie.
+# Record a *reason code* with every judgement - preference data without reasons
+# cannot be audited.
+
+name: Pairwise Response Preference
+version: "1.0"
+task_type: pairwise comparison
+scale: {min: -3, max: 3}
+
+instructions: |
+  1. Read the prompt. Write down (privately) what a great answer must contain.
+  2. Read A fully, then B fully. Do NOT skim B after liking A.
+  3. Decide the winner on SUBSTANCE first (correctness, instruction following,
+     completeness), then use style (clarity, tone, length) only to break ties
+     or widen a small gap.
+  4. Record the strength of preference, the primary reason code, and one sentence.
+
+  Known biases to resist:
+    - Position bias: the response shown first is preferred ~55% of the time by
+      untrained raters. The task order is randomised; your judgements should
+      show no first-position preference across your batch.
+    - Length bias: longer is not better. Ask "would I rather receive this?".
+    - Confidence bias: a confident wrong answer beats a hedged right one for
+      inattentive raters. Verify before rewarding confidence.
+    - Formatting bias: headings and bullets are not content.
+
+dimensions:
+  - key: preference
+    name: Overall preference
+    weight: 1.0
+    description: Which response better serves the user, and how clearly?
+    anchors:
+      -3: A is much better - B has a disqualifying flaw (wrong, unsafe, ignores the task) that A does not.
+      -2: A is clearly better on substance; B is acceptable but inferior.
+      -1: A is slightly better - comparable substance, A wins on a secondary dimension.
+      0: Tie - equally good, or equally flawed in ways that offset. Use sparingly and justify.
+      1: B is slightly better - comparable substance, B wins on a secondary dimension.
+      2: B is clearly better on substance; A is acceptable but inferior.
+      3: B is much better - A has a disqualifying flaw that B does not.
+
+metadata:
+  reason_codes:
+    CORRECTNESS: one response is factually/technically wrong where the other is right
+    INSTRUCTION: one response follows the prompt's constraints and the other does not
+    COMPLETENESS: one covers something essential the other omits
+    SAFETY: one handles a sensitive aspect appropriately and the other does not
+    REASONING: one explains/justifies and the other merely asserts
+    CLARITY: substance comparable; one is clearer, better organised or better length
+    TONE: substance comparable; one has a more appropriate register
+    OTHER: explain in the comment
+  quality_checks:
+    - first-position preference rate per rater should sit within 45-55% over >= 100 judgements
+    - share of ties should be below 15%; above that the rater is avoiding decisions
+    - agreement with reference judgements (direction only) should exceed 80%
