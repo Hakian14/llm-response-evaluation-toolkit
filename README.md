@@ -50,6 +50,14 @@ The report ([`examples/quality_report.md`](examples/quality_report.md)) catches 
 points at the anchors, not the people. It also flags the prevalence caveat — when 85% of items get the
 same `safety` score, α is deflated even if raters agree on nearly every item.
 
+## Graded samples — the routine applied
+
+[`examples/graded_samples/`](examples/graded_samples/) holds three fully worked gradings: a pandas
+performance answer with confident wrong parameters (verified by running them), a SQL query whose
+order count is inflated by a join (invisible to reading, caught by executing it), and an A-vs-B pair
+built to test length bias. Each shows the pre-read "what a complete answer needs", per-dimension
+scores with evidence, the weighted score, and a calibration note on where graders might differ.
+
 ## Using the library
 
 ```python
