@@ -1,6 +1,6 @@
 # Graded sample 02 — Data analysis / SQL
 
-Rubric: [`data_analysis_response_v1`](../../rubrics/data_analysis_response_v1.yaml) · Grader: Ha Kieu Anh · Time spent: 14 min (query run on a sample database)
+Rubric: [`data_analysis_response_v1`](../../rubrics/data_analysis_response_v1.yaml) · Grader: Ha Kieu Anh
 
 ## Task
 

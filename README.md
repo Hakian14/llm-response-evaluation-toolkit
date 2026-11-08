@@ -133,7 +133,7 @@ two-rater identities.
 
 ## About
 
-Built by **Ha Kieu Anh** — AI trainer / evaluator (Outlier, Mercor, Micro1) with a B.Sc. in Statistics and
+Built by **Ha Kieu Anh** — AI trainer / evaluator for AI training platforms, with a B.Sc. in Statistics and
 5+ years as a Data Analyst. [GitHub](https://github.com/Hakian14) · [LinkedIn](https://www.linkedin.com/in/kieu-anh-ha-6249a3172/) · hakieuanh662@gmail.com
 
 License: [MIT](LICENSE)

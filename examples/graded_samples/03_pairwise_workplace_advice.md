@@ -1,6 +1,6 @@
 # Graded sample 03 — Pairwise preference · advice / interpersonal
 
-Rubric: [`pairwise_preference_v1`](../../rubrics/pairwise_preference_v1.yaml) · Grader: Ha Kieu Anh · Time spent: 7 min · Presentation order in the task: A first
+Rubric: [`pairwise_preference_v1`](../../rubrics/pairwise_preference_v1.yaml) · Grader: Ha Kieu Anh· Presentation order in the task: A first
 
 ## Task
 

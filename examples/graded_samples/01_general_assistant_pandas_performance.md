@@ -1,6 +1,6 @@
 # Graded sample 01 — General assistant · technical Q&A
 
-Rubric: [`general_assistant_v1`](../../rubrics/general_assistant_v1.yaml) · Grader: Ha Kieu Anh · Time spent: 11 min (including running the code)
+Rubric: [`general_assistant_v1`](../../rubrics/general_assistant_v1.yaml) · Grader: Ha Kieu Anh
 
 ## Task
 

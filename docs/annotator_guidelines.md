@@ -1,7 +1,7 @@
 # Annotator guidelines — grading LLM responses well
 
-These are the working rules I use and teach for rubric-based grading of model outputs. They are
-written to be handed to a new annotator on day one, and to be the reference the QC report in
+These are the working rules I use for rubric-based grading of model outputs, written so they could
+be handed to a new annotator on day one, and to be the reference the QC report in
 `examples/quality_report.md` points back to.
 
 ## 1. The grading routine (every task)
@@ -36,7 +36,7 @@ written to be handed to a new annotator on day one, and to be the reference the 
 
 ## 3. Calibration before production
 
-Every annotator grades the same **20 calibration items** before touching production tasks.
+Recommended gate: every annotator grades the same **20 calibration items** before touching production tasks.
 
 - Pass bar: quadratic-weighted κ ≥ 0.70 against the reference scores on every dimension, and no
   dimension with mean bias beyond ±0.5.
@@ -84,5 +84,4 @@ The comment should let a second reviewer find the problem in under ten seconds.
 
 ---
 
-*These guidelines are the generic practice I apply across projects. They contain no project-,
-client- or platform-specific material.*
+*These guidelines describe generic practice. They contain no project-, client- or platform-specific material.*
